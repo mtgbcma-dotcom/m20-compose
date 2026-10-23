@@ -4,6 +4,15 @@ Atividade do Módulo 20 de Continuação Back-End Python da EBAC.
 
 Configurei o Docker Compose para orquestrar a API Django REST Framework e o banco PostgreSQL em serviços separados. A API mantém categorias, produtos, pedidos, paginação de 5 registros e autenticação por token somente nos pedidos.
 
+
+## Continuidade do projeto e do ambiente
+
+Dei continuidade à entrega do [módulo 19 — Docker](https://github.com/mtgbcma-dotcom/m19-docker/pull/1). Mantive os modelos, os serializers, a migração inicial e os testes de serializers do Bookstore, além das funcionalidades acrescentadas nas etapas anteriores.
+
+Nos módulos 15 e 16, utilizei Poetry com `pyproject.toml` e `poetry.lock`. A partir do módulo 17, passei a declarar as dependências em `requirements.txt` e a instalar com pip. Nas etapas com Docker, o próprio Dockerfile executa essa instalação durante a construção da imagem. Documentei essa mudança de ferramenta para deixar explícita a continuidade do mesmo projeto.
+
+Para reproduzir esta entrega, utilizei os comandos e os arquivos de dependências desta versão, descritos abaixo. A instalação com pip segue as faixas registradas em `requirements.txt`; o lock do Poetry das etapas anteriores continua disponível nos respectivos repositórios.
+
 ## Implementação
 
 - `docker-compose.yml` com os serviços `web` e `db`.
