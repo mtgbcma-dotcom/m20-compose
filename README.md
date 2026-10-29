@@ -5,6 +5,14 @@ Atividade do Módulo 20 de Continuação Back-End Python da EBAC.
 Configurei o Docker Compose para orquestrar a API Django REST Framework e o banco PostgreSQL em serviços separados. A API mantém categorias, produtos, pedidos, paginação de 5 registros e autenticação por token somente nos pedidos.
 
 
+## Consulta pública de produtos
+
+Apliquei a orientação do tutor e a correção do módulo 17: a listagem `GET /api/products/` e o detalhe `GET /api/products/{id}/` são públicos, sem necessidade de login ou token. Preservei a paginação de 5 registros, os links para as páginas seguintes e a categoria na representação dos produtos.
+
+Mantive o cadastro, a alteração e a exclusão de produtos restritos à equipe por sessão ou Basic Authentication. Os pedidos continuam protegidos por TokenAuthentication e retornam HTTP 401 sem token. Mantive também a permissão de categorias e o Poetry, com o manifesto e o lock sem alterações nesta correção.
+
+Acrescentei testes de consulta anônima da listagem e dos detalhes, paginação sem login e bloqueio de todas as operações de escrita de produtos para visitantes e usuários comuns. Registrei a validação em [docs/CONTINUIDADE.md](docs/CONTINUIDADE.md).
+
 ## Continuidade do projeto e do ambiente
 
 Dei continuidade ao [módulo 19 — Docker](https://github.com/mtgbcma-dotcom/m19-docker/pull/1). Mantive os modelos, serializers, migração inicial, paginação, autenticação e testes da API Bookstore.
@@ -102,7 +110,7 @@ São criadas 12 categorias e 12 produtos para conferir a paginação. Executar n
 - Produtos: http://127.0.0.1:8001/api/products/
 - Pedidos: http://127.0.0.1:8001/api/orders/
 
-Em categorias e produtos, clique em **Log in** e entre com o administrador criado neste módulo. A listagem apresenta `count`, `next`, `previous` e `results`.
+Consulte a listagem e os detalhes de produtos sem fazer login. Para acessar categorias ou cadastrar, alterar e excluir produtos, use **Log in** com o administrador criado. A listagem de produtos preserva `count`, `next`, `previous` e `results`.
 
 Pedidos exigem o cabeçalho de token. Acessar `/api/orders/` diretamente no navegador sem esse cabeçalho retorna HTTP 401, mesmo com sessão de login.
 
@@ -124,7 +132,7 @@ docker compose exec web poetry run python manage.py makemigrations --check --dry
 docker compose exec web poetry run python manage.py test --verbosity 2
 ```
 
-A suíte contém 86 testes de serializers, operações da API, permissões, paginação e autenticação por token. O esperado é terminar com `Ran 86 tests` e `OK`. O banco temporário dos testes é removido ao concluir, preservando os produtos e usuários cadastrados para a demonstração.
+A suíte contém 89 testes de serializers, operações da API, permissões, paginação e autenticação por token. O esperado é terminar com `Ran 89 tests` e `OK`. O banco temporário dos testes é removido ao concluir, preservando os produtos e usuários cadastrados para a demonstração.
 
 ## Testar pedidos com token no PowerShell
 
